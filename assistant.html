@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Assistant</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    #chatbox {
+      width: 100%;
+      max-width: 500px;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    #messages {
+      height: 300px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+    }
+
+    .message {
+      margin: 10px 0;
+    }
+
+    .user {
+      text-align: right;
+      color: #2a9d8f;
+    }
+
+    .bot {
+      text-align: left;
+      color: #264653;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🦁 AI Assistant</h1>
+  <div id="chatbox">
+    <div id="messages"></div>
+    <input type="text" id="userInput" placeholder="Type a message and press Enter" onkeydown="handleKey(event)" />
+  </div>
+
+  <script>
+    const messages = document.getElementById('messages');
+
+    function handleKey(e) {
+      if (e.key === 'Enter') {
+        const input = document.getElementById('userInput');
+        const userText = input.value;
+        if (userText.trim() !== '') {
+          addMessage(userText, 'user');
+          const botResponse = getBotResponse(userText);
+          setTimeout(() => addMessage(botResponse, 'bot'), 500);
+          input.value = '';
+        }
+      }
+    }
+
+    function addMessage(text, sender) {
+      const msg = document.createElement('div');
+      msg.classList.add('message', sender);
+      msg.textContent = text;
+      messages.appendChild(msg);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function getBotResponse(input) {
+      input = input.toLowerCase();
+
+      if (input.includes("hello") || input.includes("hi") || input.includes("good morning")) {
+        return "Good morning! 🌞 How can I help you today?";
+      }
+
+      if (input.includes("how are you")) {
+        return "I'm just a bunch of code, but I'm feeling helpful! 😄 What about you?";
+      }
+
+      if (input.includes("help")) {
+        return "Sure, I can help! Try asking about features or just say hi.";
+      }
+
+      if (input.includes("name")) {
+        return "I'm your AI assistant. You can call me LionBot 🦁.";
+      }
+
+      if (input.includes("thank you")) {
+        return "You're very welcome! 😊";
+      }
+
+      return "Hmm, I didn’t quite get that. Try asking something else!";
+    }
+  </script>
+</body>
+</html>
